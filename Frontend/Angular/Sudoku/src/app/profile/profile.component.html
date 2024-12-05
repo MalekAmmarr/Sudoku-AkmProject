@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+<div class="container">
+  <div *ngIf="isLoggedIn; else loginPrompt">
+    <!-- Show profile info (this will render only when isLoggedIn is true) -->
+  </div>
+
+  <!-- Login Prompt Template -->
+ 
+    <div class="login-container">
+    <ng-template #loginPrompt>
+      <div class="login-message">
+        <h4>Login or sign up first to view your profile.</h4>
+      </div>
+      
+      <div class="auth-buttons">
+        <button routerLink="/login">Login</button>
+        <button routerLink="/signup">Signup</button>
+      </div>
+    </ng-template>
+  </div>
+
+</div>
+</body>
+</html>
