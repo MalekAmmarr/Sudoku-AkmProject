@@ -1,0 +1,87 @@
+/* General body styles */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+              url("/assets/background1.avif") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+body {
+  display: flex;
+  align-items: flex-start; /* Aligns the content at the top */
+  justify-content: center;
+  min-height: 100vh;
+  padding-top: 1%; /* This pushes everything down vertically */
+}
+
+/* Container for login content */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  margin-top: 15%; /* Moves the content down */
+}
+
+/* Container for login prompt */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Styling for the login message */
+.login-message h4 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin-bottom: 20px; /* Adds space between the text and buttons */
+}
+
+/* Styling for the authentication buttons */
+.auth-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Adds space between the buttons */
+}
+
+button {
+  padding: 12px 24px;
+  font-size: 1.2em;
+  background-color: #540bb4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none; /* Removes underline */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 200px; /* Button width */
+}
+
+/* Hover effect for buttons */
+button:hover {
+  background-color: #540bb4;
+  transform: scale(1.05);
+}
+
+/* Auth links styling (if any) */
+.auth-links {
+  margin-top: 10px;
+}
+
+.auth-links a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+}
