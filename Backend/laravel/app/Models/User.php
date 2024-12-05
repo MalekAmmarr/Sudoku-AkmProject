@@ -21,10 +21,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'score',
-        'payment_gateway_customer_id',
-        'card_number',
-        'card_brand'
     ];
 
     /**
