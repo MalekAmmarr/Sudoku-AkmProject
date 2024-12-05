@@ -123,7 +123,7 @@ The Laravel framework is licensed under the [MIT license](https://opensource.org
 
 1. Navigate to the Vue project directory:
    ```bash
-   cd Frontend/Vue/sudoku
+   cd Frontend/Vue
    ```
 
 2. Install the dependencies:
