@@ -2,7 +2,7 @@
 
 # Backend : Laravel
 
-## cd Backend/laravel 
+## cd Backend/Sudoku-laravel
 
 ### Run the project 
 
