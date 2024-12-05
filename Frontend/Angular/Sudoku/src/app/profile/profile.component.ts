@@ -1,6 +1,6 @@
 // profile.component.ts
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '/Users/mokaa/Desktop/Desktop/Semester 5/Web Programming/Sudoko project/Sudoku/src/app/auth.service';
+import { AuthService } from '../auth.service';  // Adjust the path based on your folder structure
 
 
 @Component({
