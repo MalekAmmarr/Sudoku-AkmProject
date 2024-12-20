@@ -1,21 +1,42 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+              url("/assets/background2.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+body {
+  display: flex;
+  align-items: flex-start; /* Aligns the content at the top */
+  justify-content: center;
+  min-height: 100vh;
+}
+
 .signup-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #f0f2f5;
+  background-color: transparent;
   padding: 20px;
+  padding-top: 6%;
+
 }
 
 h2 {
-  color: #333;
+  color: #fff;
   text-align: center;
   margin-bottom: 20px;
 }
 
 form {
-  background-color: white;
+  background-color: transparent;
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -30,7 +51,7 @@ form {
 label {
   display: block;
   margin-bottom: 5px;
-  color: #555;
+  color: #fff;
 }
 
 input[type="text"],
@@ -58,21 +79,22 @@ button {
   width: 100%;
   padding: 10px;
   font-size: 18px;
-  background-color: #333;
+  background-color: #705645;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
 
 button:hover {
-  background-color: #555;
+  background-color: #a68d78;
 }
 
 p {
   margin-top: 15px;
-  color: #333;
+  color: #fff;
 }
 
 a {
@@ -82,4 +104,57 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+/* Styling for the Payment Method Section */
+.payment-method {
+  background-color: #f9f9f9; /* Light gray background */
+  border: 1px solid #ddd; /* Subtle border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+}
+
+.payment-method h4 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+/* Styling for the credit card fields container */
+.credit-card-fields {
+  display: flex;
+  gap: 15px; /* Space between fields */
+  flex-wrap: wrap; /* Allows wrapping for responsiveness */
+}
+
+/* Styling for the input fields */
+.form-control {
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus {
+  border-color: #4CAF50; /* Green border on focus */
+  outline: none;
+}
+
+/* Styling for smaller input fields like MM/YY and CVC */
+.small-input {
+  width: calc(33.33% - 10px); /* Adjusts width for smaller fields */
+  max-width: 100px;
+}
+
+/* Error message styling */
+.text-danger {
+  color: #e74c3c; /* Red color for error text */
+  font-size: 14px;
+  margin-top: 5px;
 }

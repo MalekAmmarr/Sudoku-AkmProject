@@ -1,0 +1,51 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #333;
+    width: 100%; /* Ensures the navbar spans the entire width */
+    position: fixed; /* Fixes navbar at the top of the page */
+    top: 0; /* Keeps it at the top */
+    left: 0; /* Keeps it aligned with the left side */
+    right: 0;
+    z-index: 1000; /* Keeps the navbar on top of other elements */
+  }
+  
+  
+  .logo {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    list-style-type: none;
+    display: flex;
+  }
+
+  .logo li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .nav-links {
+    list-style-type: none;
+    display: flex;
+    padding: 5px 10px;
+    border-radius: 6px;
+    gap: 3rem;
+    margin: 0;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .nav-links li a:hover {
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.1); 
+  }
+  
+  

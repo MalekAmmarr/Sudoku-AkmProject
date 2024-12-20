@@ -1,41 +1,93 @@
-<div class="signup-container">
-  <h2>Sign Up</h2>
-  <form>
-    <div class="form-group">
-      <label for="name">Full Name</label>
-      <input type="text" id="name"  name="name" required>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SignUp</title>
+</head>
+<body>
+  <div class="signup-container">
+    <h2>Sign Up</h2>
+  
+    <form #signupForm="ngForm" (ngSubmit)="submitForm(signupForm)">
+
+      <!-- Account Details Section -->
+    <div class="account-details">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Your Full Name" class="form-control" [(ngModel)]="users.name" required >
+        <div *ngIf="signupForm.controls['name']?.touched && signupForm.controls['name']?.invalid" class="text-danger">
+          Name is required.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Your Username" [(ngModel)]="users.username" required minlength="3">
+        <div *ngIf="signupForm.controls['username']?.touched && signupForm.controls['username'].invalid" class="text-danger">
+          <div *ngIf="signupForm.controls['username'].errors?.['required']">Username is required.</div>
+          <div *ngIf="signupForm.controls['username'].errors?.['minlength']">Username must be at least 3 characters.</div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Your Email" [(ngModel)]="users.email" required>
+        <div *ngIf="signupForm.controls['email']?.touched && signupForm.controls['email']?.invalid" class="text-danger">
+          <div *ngIf="signupForm.controls['email'].errors?.['required']">Email is required.</div>
+          <div *ngIf="signupForm.controls['email'].errors?.['email']">Invalid email format.</div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="********" [(ngModel)]="users.password" required minlength="8">
+        <div *ngIf="signupForm.controls['password']?.touched && signupForm.controls['password']?.invalid" class="text-danger">
+          <div *ngIf="signupForm.controls['password'].errors?.['required']">Password is required.</div>
+          <div *ngIf="signupForm.controls['password'].errors?.['minlength']">Password must be at least 8 characters.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="picture">Profile Picture</label>
+        <input type="file" id="picture" name="picture" (change)="onFileChange($event)" [(ngModel)]="users.picture">
+        
+      </div>
+  
+      <div class="form-group">
+        <label for="preferences">Preferences</label>
+        <textarea id="preferences" name="preferences" rows="3" placeholder="Your preferences here..." [(ngModel)]="users.preferences"></textarea>
+      </div>
     </div>
 
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input type="text" id="username"  name="username" required>
+   <!-- Payment Method Section -->
+    <div class="payment-method">
+      <h4>Credit Card Information</h4>
+      <div class="form-group">
+
+    <!-- Credit Card Fields -->
+      <div class="credit-card-fields">
+        <!-- Card Number Input -->
+        <input type="text" id="creditCard" name="creditCard" placeholder="Card Number (XXXX-XXXX-XXXX-XXXX)" (input)="formatCreditCardNumber($event)" maxlength="19" class="form-control" [(ngModel)]="users.creditCard"/>
+        <div *ngIf="signupForm.controls['creditCard']?.touched && signupForm.controls['creditCard']?.invalid" class="text-danger">
+          <div *ngIf="signupForm.controls['creditCard'].errors?.['required']">Credit Card is required.</div>
+          <div *ngIf="signupForm.controls['creditCard'].errors?.['pattern']">Invalid Credit Card format (e.g., 1234-5678-9101-1121).</div>
+        </div>
+
+        <!-- Expiration Date -->
+        <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" (input)="formatExpiryDate($event)" maxlength="5" class="form-control small-input" [(ngModel)]="users.expiryDate"/>
+        <!-- CVC -->
+        <input type="text" id="cvv" name="cvv" placeholder="XXX" (input)="formatCvv($event)" maxlength="3" class="form-control small-input" [(ngModel)]="users.cvv"/>
+      </div>
+      </div>  
     </div>
 
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" id="email"  name="email" required>
-    </div>
 
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" id="password"  name="password" required>
-    </div>
-
-    <div class="form-group">
-      <label for="picture">Profile Picture</label>
-      <input type="file" id="picture"  name="picture" accept="image/*">
-    </div>
-
-    <div class="form-group">
-      <label for="credit-card">Credit Card</label>
-      <input type="text" id="credit-card"  name="creditCard" required>
-    </div>
-
-    <div class="form-group">
-      <label for="preferences">Preferences</label>
-      <textarea id="preferences"  name="preferences" rows="3"></textarea>
-    </div>
-
-    <button type="submit">Sign Up</button>
-  </form>
-</div>
+      <button type="submit">Sign Up</button>
+    </form>
+    <p>Already have an account? <a routerLink="/login">Login here</a></p>
+  </div>
+  
+  
+</body>
+</html>

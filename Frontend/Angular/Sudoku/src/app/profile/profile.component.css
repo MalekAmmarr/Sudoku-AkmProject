@@ -1,87 +1,111 @@
-/* General body styles */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-              url("/assets/background1.avif") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-body {
+.profile-container {
   display: flex;
-  align-items: flex-start; /* Aligns the content at the top */
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding-top: 1%; /* This pushes everything down vertically */
+  background-color: #f0f2f5;
+  padding: 20px;
 }
 
-/* Container for login content */
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.profile-info {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  height: 100%;
-  flex-direction: column;
-  margin-top: 15%; /* Moves the content down */
+  max-width: 400px;
+  text-align: left;
+  color: #555;
 }
 
-/* Container for login prompt */
-.login-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-/* Styling for the login message */
-.login-message h4 {
-  color: #ffffff;
-  font-size: 1.5rem;
-  margin-bottom: 20px; /* Adds space between the text and buttons */
-}
-
-/* Styling for the authentication buttons */
-.auth-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* Adds space between the buttons */
+.profile-info p {
+  margin: 10px 0;
 }
 
 button {
-  padding: 12px 24px;
-  font-size: 1.2em;
-  background-color: #540bb4;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #333;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
-  text-decoration: none; /* Removes underline */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  width: 200px; /* Button width */
+  transition: background-color 0.3s ease;
 }
 
-/* Hover effect for buttons */
 button:hover {
-  background-color: #540bb4;
-  transform: scale(1.05);
+  background-color: #555;
 }
 
-/* Auth links styling (if any) */
-.auth-links {
-  margin-top: 10px;
+.payment-dropdown {
+  transition: opacity 0.3s ease;
+  padding: 10%;
 }
 
-.auth-links a {
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: bold;
+.payment-dropdown:checked {
+  opacity: 1;
 }
 
-.auth-links a:hover {
-  text-decoration: underline;
+.add-payment-container {
+  width: 400px; /* Reduced max-width for better mobile view */
+  margin: 20px auto; /* Added margin for spacing */
+  padding: 20px; /* Reduced padding */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.add-payment-container h3 {
+  margin-bottom: 20px; /* Added spacing below heading */
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px; /* Added spacing between form elements */
+}
+
+.form-group label {
+  display: block; /* Labels above inputs */
+  margin-bottom: 5px;
+  font-weight: 500; /* Slightly bolder labels */
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+  font-size: 16px;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #333; /* Highlight on focus */
+  box-shadow: 0 0 7px rgba(0, 123, 255, 0.2);
+  
+}
+
+.btn-primary {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+  width: 100%; /* Full width button */
+}
+
+.btn-primary:hover {
+  background-color: #555;
 }

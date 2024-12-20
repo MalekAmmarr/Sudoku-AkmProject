@@ -6,26 +6,87 @@
 </head>
 
 <body>
-<div class="container">
-  <div *ngIf="isLoggedIn; else loginPrompt">
-    <!-- Show profile info (this will render only when isLoggedIn is true) -->
+  <div class="profile-container">
+    <h2>User Profile</h2>
+    <div class="profile-info">
+      <p><strong>Username:</strong> {{username}}</p>
+      <p><strong>Email:</strong> {{email}}</p>
+      <p><strong>Highest Score:</strong> {{highestScore}}</p>
+    </div>
+    <button (click)="navigateToGamePage()" class="start-button">Start Game</button>
+
+  <!-- Display current payment details if available -->
+  <div *ngIf="paymentDetails">
+    <h3>Current Payment Details</h3>
+    <p>Card Number: {{ paymentDetails.cardNumber }}</p>
+    <p>Expiry Date: {{ paymentDetails.expiryDate }}</p>
+    <p>CVV: {{ paymentDetails.cvv }}</p>
   </div>
 
-  <!-- Login Prompt Template -->
- 
-    <div class="login-container">
-    <ng-template #loginPrompt>
-      <div class="login-message">
-        <h4>Login or sign up first to view your profile.</h4>
+  <!-- Button to toggle the new payment form -->
+  <button (click)="togglePayment()">Add New Payment</button>
+
+  <!-- Form to add a new payment -->
+  <div *ngIf="showPayment" class="add-payment-container">
+    <h3>Add New Payment</h3>
+    <form (ngSubmit)="addNewPayment()">
+      <div class="form-group">
+        <label for="new-card-number">Card Number:</label>
+        <input type="text" id="new-card-number" [(ngModel)]="newPayment.cardNumber" name="newCardNumber" (input)="formatCreditCardNumber($event)" required class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX" maxlength="19" required>
       </div>
-      
-      <div class="auth-buttons">
-        <button routerLink="/login">Login</button>
-        <button routerLink="/signup">Signup</button>
+  
+      <div class="form-group">
+        <label for="new-expiry-date">Expiry Date:</label>
+        <input type="text" id="new-expiry-date" [(ngModel)]="newPayment.expiryDate" name="newExpiryDate" (input)="formatExpiryDate($event)" required class="form-control" placeholder="MM/YY" maxlength="5" required>
       </div>
-    </ng-template>
+  
+      <div class="form-group">
+        <label for="new-cvv">CVV:</label>
+        <input type="text" id="new-cvv" [(ngModel)]="newPayment.cvv" name="newCvv" (input)="formatCvv($event)" required class="form-control" placeholder="XXX" maxlength="3" required>
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Add Payment</button>
+    </form>
+  </div>
+  
+
+  <!-- Button to update username and email -->
+  <div>
+    <button (click)="toggleUpdateForm()">Update Username & Email</button>
+    <div *ngIf="showUpdateForm">
+      <h3>Update Profile</h3>
+      <form (ngSubmit)="updateProfile()">
+        <div class="form-group">
+          <label for="new-username">New Username:</label>
+          <input
+            type="text"
+            id="new-username"
+            [(ngModel)]="updatedUser.username"
+            name="newUsername"
+            required
+            class="form-control"
+          />
+        </div>
+        <div class="form-group">
+          <label for="new-email">New Email:</label>
+          <input
+            type="email"
+            id="new-email"
+            [(ngModel)]="updatedUser.email"
+            name="newEmail"
+            required
+            class="form-control"
+          />
+        </div>
+        <button type="submit" class="btn btn-success">Update</button>
+      </form>
+    </div>
   </div>
 
-</div>
+  <!-- Button to delete account -->
+  <div>
+    <button (click)="deleteAccount()">Delete Account</button>
+  </div>
+  </div>
 </body>
 </html>

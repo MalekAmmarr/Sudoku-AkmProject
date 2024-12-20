@@ -1,109 +1,109 @@
 <template>
   <div class="WholePage">
     <div v-if="!gameOver && !gameWin">
-    <header>      
-      <div class="difficulty">
-        <p>Difficulty: </p>
-        <button v-for="level in levels" :key="level" :class="{ active: difficulty === level }" @click="setDifficulty(level)">
-          {{ level }}
-        </button>
-      </div>
-      <!-- Game Status -->
-      <div class="status">
-        <p :class="{'red': isRed}">score: {{ counter }}</p>
-        <span>Mistakes: {{ Mistakes }}/{{ MaxMistakes }} </span> &nbsp;
-        <span>Undo: {{ undotimes }}/ 2  </span> &nbsp;
-        <span>Hints: {{ hinTimes }}/ {{ MaxHint }}  </span> &nbsp;
-        <span>{{ formatTime(timer) }}</span>
-        <img 
-          src="/icons/pause-play.png" 
-          alt="Resume/Pause" 
-          class="resume-pause-logo" 
-          @click="toggleTimer"
-        />      
-      </div>
-    </header>
+      <header>
+        <div class="difficulty">
+          <p>Difficulty: </p>
+          <button v-for="level in levels" :key="level" :class="{ active: difficulty === level }" @click="setDifficulty(level)">
+            {{ level }}
+          </button>
+        </div>
+        <!-- Game Status -->
+        <div class="status">
+          <p :class="{'red': isRed}">Score: {{ counter }}</p>
+          <span>Mistakes: {{ Mistakes }}/{{ MaxMistakes }} </span> &nbsp;
+          <span>Undo: {{ undotimes }}/ 2 </span> &nbsp;
+          <span>Hints: {{ hinTimes }}/ {{ MaxHint }} </span> &nbsp;
+          <span>{{ formatTime(timer) }}</span>
+          <img src="/icons/pause-play.png" alt="Resume/Pause" class="resume-pause-logo" @click="toggleTimer" />
+        </div>
 
-    <div id="game-container">
+        <!-- Add Button to Fetch Top Scores -->
+        <button @click="fetchTopScores" class="fetch-scores-btn">Show Top Scores</button>
+
+        <!-- Top Scores List -->
+        <div v-if="topScores && topScores.length > 0" class="scores-list">
+  <h3>Top Scores:</h3>
+  <ul>
+    <li v-for="(score, index) in topScores" :key="score.id">
+      Rank {{ index + 1 }}: {{ score.username || 'Unknown' }} - {{ score.score || 0 }}
+    </li>
+  </ul>
+</div>
+
+<div v-else class="no-scores">
+  <p>No scores available. Play the game to generate some!</p>
+</div>
+      </header>
+
+      <div id="game-container">
         <!-- Sudoku Grid -->
         <div id="sudoku-wrapper">
-        <div id="blur-overlay" v-if="paused">
-          <img 
-            src="/icons/play-button.png" 
-            alt="Resume" 
-            class="resume-button" 
-            @click="toggleTimer" 
-          />
-        </div>
-        <div id="sudoku">
-          <div v-for="(row, i) in board" :key="i" class="parentCube">
-            <div v-for="(cell, j) in row" :key="j" class="childCube" @click="setActiveCell(i, j)">
-              <div v-if="cell !== null" class="inputCell">{{ cell }}</div>
-              <input
-                v-else
-                v-model.number="board[i][j]"
-                class="emptyCell"
-                type="tel"
-                @input="validateInput(i, j)"
-                maxlength="1"
-              />
+          <div id="blur-overlay" v-if="paused">
+            <img src="/icons/play-button.png" alt="Resume" class="resume-button" @click="toggleTimer" />
+          </div>
+          <div id="sudoku">
+            <div v-for="(row, i) in board" :key="i" class="parentCube">
+              <div v-for="(cell, j) in row" :key="j" class="childCube" @click="setActiveCell(i, j)">
+                <div v-if="cell !== null" class="inputCell">{{ cell }}</div>
+                <input
+                  v-else
+                  v-model.number="board[i][j]"
+                  class="emptyCell"
+                  type="tel"
+                  @input="validateInput(i, j)"
+                  maxlength="1"
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Controls -->    
-    <div>
-      <div class="controls">
-        <div class="control-button" @click="undo">
-          <img src="/icons/undo.png"/>
-          <span>Undo</span>
+        <!-- Controls -->
+        <div class="controls">
+          <div class="control-button" @click="undo">
+            <img src="/icons/undo.png" />
+            <span>Undo</span>
+          </div>
+          <div class="control-button" @click="onEraseClick">
+            <img src="/icons/erase.png" />
+            <span>Erase</span>
+          </div>
+          <div class="control-button" @click="hint">
+            <img src="/icons/hint.png" />
+            <span>Hint</span>
+          </div>
         </div>
-        <div class="control-button" @click="onEraseClick">
-          <img src="/icons/erase.png"/>
-          <span>Erase</span>
+        <div id="keypad">
+          <button v-for="num in [1, 2, 3, 4, 5, 6, 7, 8, 9]" :key="num" @click="selectNumber(num)" class="keypad-button">
+            {{ num }}
+          </button>
         </div>
-
- <!--       <div class="control-button" @click="toggleNotes">
-          <img src="/icons/notes.png"/>
-          <span>Notes</span>
-        </div>
--->        
-        <div class="control-button" @click="hint">
-          <img src="/icons//hint.png"/>
-          <span>Hint</span>
-        </div>
+        <button class="new-game" @click="resetGame">New Game</button>
       </div>
-      <!-- Number Keypad -->
-      <div id="keypad">
-        <button v-for="num in [1, 2, 3, 4, 5, 6, 7, 8, 9]" :key="num" @click="selectNumber(num)" class="keypad-button">
-          {{ num }}
-        </button>
-      </div>
-      <button class="new-game" @click="resetGame">New Game</button>
     </div>
-  </div>
 
-  </div>
     <div v-else-if="gameOver" class="game-over">
       <h3>You lost!</h3>
       <button class="resetGame" @click="resetGame">Try Again</button>
     </div>
-    <div v-else-if="gameWin" class="game-win"> <!-- Display win message when gameWin is true -->
-      <h3>Congratulations, You Won!🎉</h3>
-      <button class="resetGame" @click="resetGame">Try again with harder level  ;)</button>
-  </div>
-  
+
+    <div v-else-if="gameWin" class="game-win">
+      <h3>Congratulations, You Won! 🎉</h3>
+      <button class="resetGame" @click="resetGame">Try Again with Harder Level ;)</button>
+    </div>
   </div>
 </template>
 
 <script>
+
 export default {
   name: "SudokuGame",
   data() {
     return {
       levels: ["Easy", "Medium", "Hard"],
       board: Array.from({ length: 9 }, () => Array(9).fill(null)), // Default empty 9x9 grid with null for empty cells
+      topScores: [], // Initialize top scores
       HiddenValue: Array.from({ length: 9 }, () => Array(9).fill(null)),
       difficulty: 'Easy', // Default difficulty
       selectedNumber: null, // Number selected from keypad
@@ -127,6 +127,7 @@ export default {
     };
   },
   mounted() {
+    this.fetchUserData(); // Fetch the data when the component is mounted
     this.setDifficulty(this.difficulty);
     this.setMaxMistakes(this.MaxMistakes);
     window.addEventListener('keydown', this.handleKeyboardInput);
@@ -136,6 +137,60 @@ export default {
 
   },
   methods: {
+    getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+      return null;
+    },
+    fetchUserData() {
+      fetch("http://127.0.0.1:8000/api/users/retrieve", {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${this.getCookie("auth_token")}`,
+  },
+  credentials: "include", // Ensures cookies are included
+})
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((json) => {
+    this.userData = json; // Store the fetched data
+    console.log("Fetched user data:", this.userData);
+  })
+  .catch((error) => {
+    console.error("Error fetching user data:", error);
+  });
+},
+fetchTopScores() {
+  console.log("fetchTopScores method called"); // Debugging log
+  fetch("http://127.0.0.1:8000/api/users/scores/top", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${this.getCookie("auth_token")}`,
+    },
+    credentials: "include",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Fetched top scores:", data); // Debugging log
+      this.topScores = data;
+    })
+    .catch((error) => {
+      console.error("Error fetching top scores:", error);
+    });
+},
+
     generateNumbers() {
       const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
       this.shuffle(numbers); // Shuffle numbers to ensure randomness
