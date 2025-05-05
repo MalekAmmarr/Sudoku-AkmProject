@@ -1,6 +1,14 @@
 
 # Sudoku-AkmProject
 
+## Game preview
+
+![image](https://github.com/user-attachments/assets/ed6b9398-5db3-4c59-a92c-df4cf758aa42)
+
+
+![image](https://github.com/user-attachments/assets/e9d142c3-f2d2-4800-805f-2f0c0008d317)
+
+
 ## Backend: Laravel
 
 ### Setup and Run the Laravel Backend
